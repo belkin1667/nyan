@@ -1,11 +1,15 @@
 import os
 from typing import Any
+from dotenv import load_dotenv
 
 
 def get_or_default(value: Any, default: Any) -> Any:
     if value:
         return value
     return default
+
+
+load_dotenv()
 
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]

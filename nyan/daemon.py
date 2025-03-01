@@ -25,6 +25,7 @@ from nyan.util import get_current_ts, ts_to_dt
 
 import nyan.config as config
 
+
 class Daemon:
     def __init__(
         self,
@@ -297,7 +298,7 @@ class Daemon:
     ) -> Optional[int]:
         if not config.RELATED_CLUSTERS_ENABLED:
             return None
-        
+
         threshold = float(self.config["related_threshold"])
 
         current_ts = get_current_ts()

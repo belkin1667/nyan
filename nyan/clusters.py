@@ -190,8 +190,8 @@ class Cluster:
         except Exception:
             return self.annotation_doc.patched_text
         messages = [{"role": "user", "content": prompt}]
-        content = openai_completion(messages=messages, model_name="gpt-4o")
-        return content
+        messages = [{"role": "user", "content": prompt}]
+        return openai_completion(messages=messages, model_name="gpt-4o")
 
     @property
     def annotation_doc(self) -> Document:

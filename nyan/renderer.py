@@ -14,6 +14,7 @@ from nyan.util import ts_to_dt
 from nyan.issues import IssueConfigs, IssueConfig
 from typing import Dict
 
+
 class Renderer:
     def __init__(self, config_path: str, channels: Channels) -> None:
         assert os.path.exists(config_path)
@@ -34,7 +35,6 @@ class Renderer:
         issue_config = self.issues[issue_name]
         if issue_config.style_name:
             return cluster.get_styled_text(issue_config.style_name)
-        
         groups = defaultdict(list)
         emojis = dict()
         colors = dict()

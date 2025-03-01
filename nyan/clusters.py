@@ -263,7 +263,7 @@ class Cluster:
         messages = [{"role": "user", "content": prompt}]
         messages = [{"role": "user", "content": prompt}]
         return openai_completion(messages=messages, model_name=Models.DEEPSEEK_R1)
-    
+
     def get_issue_message(self, issue: str) -> Optional[MessageId]:
         messages = [m for m in self.messages if m.issue == issue]
         if messages:

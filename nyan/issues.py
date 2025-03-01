@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Dict, Optional
+from typing import Dict
 from dataclasses import dataclass
 import nyan.config as config
 

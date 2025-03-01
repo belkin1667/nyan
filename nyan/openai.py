@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass
-from typing import Optional, Sequence, List, Dict, Any, cast
+from typing import Optional, Sequence, List, Dict, Any
 from multiprocessing.pool import ThreadPool
 
 import openai
@@ -8,7 +8,7 @@ import copy
 import nyan.config as config
 
 
-class Models:
+class Models:  # noqa: prefer-stdlib-enum
     OPENAI_GPT_4O_LATEST = "openai/chatgpt-4o-latest"
     DEEPSEEK_R1 = "deepseek/deepseek-r1"
 
@@ -42,7 +42,7 @@ def openai_completion(
     assert decoding_args.n == 1
     while True:
         try:
-            completions = client.chat.completions.create( 
+            completions = client.chat.completions.create(
                 messages=messages,  # type: ignore
                 model=model_name,
                 **decoding_args.__dict__

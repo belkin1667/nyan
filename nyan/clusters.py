@@ -250,7 +250,7 @@ class Cluster:
         final_issues.extend(categories)
         return list(set(final_issues))
 
-    def get_styled_text(self, style_name: str) -> str:
+    def get_styled_text(self, style_name: str) -> Optional[str]:
         if style_name is None:
             return self.annotation_doc.patched_text
         prompt_path: Path = BASE_DIR / "prompts/styles/{}.txt".format(style_name)

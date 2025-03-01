@@ -1,14 +1,15 @@
 import os
+from typing import Any
 
 
-def get_or_default(value, default) -> bool:
+def get_or_default(value: Any, default: Any) -> Any:
     if value:
         return value
     return default
 
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
-OPENROUTER_API_KEY = os.environ("OPENROUTER_API_KEY")
+OPENROUTER_API_KEY = os.environ["OPENROUTER_API_KEY"]
 
 UPDATE_POSTED_CLUSTERS = get_or_default(os.environ["UPDATE_POSTED_CLUSTERS"], False)
 RELATED_CLUSTERS_ENABLED = get_or_default(os.environ["RELATED_CLUSTERS_ENABLED"], False)

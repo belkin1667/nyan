@@ -34,7 +34,10 @@ class Renderer:
     def render_cluster(self, cluster: Cluster, issue_name: str) -> str:
         issue_config = self.issues[issue_name]
         if issue_config.style_name:
-            return cluster.get_styled_text(issue_config.style_name)
+            styled_text = cluster.get_styled_text(issue_config.style_name)
+            if not styled_text:
+                raise ValueError(f"Styleing '{issue_config.style_name}' failed")
+            return styled_text
         groups = defaultdict(list)
         emojis = dict()
         colors = dict()

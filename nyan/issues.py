@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Dict
+from typing import Dict, Optional
 from dataclasses import dataclass
 import nyan.config as config
 
@@ -12,7 +12,7 @@ class IssueConfig:
     discussion_id: int
     bot_token: str
     last_update_id: int = 0
-    style_name: str = None
+    style_name: Optional[str] = None
 
 
 class IssueConfigs:

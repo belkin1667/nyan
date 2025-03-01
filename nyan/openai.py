@@ -8,10 +8,7 @@ import copy
 import nyan.config as config
 
 
-import enum
-
-
-class Models(enum.Enum):
+class Models:
     OPENAI_GPT_4O_LATEST = "openai/chatgpt-4o-latest"
     DEEPSEEK_R1 = "deepseek/deepseek-r1"
 
@@ -45,8 +42,8 @@ def openai_completion(
     assert decoding_args.n == 1
     while True:
         try:
-            completions = client.chat.completions.create(  # type: ignore
-                messages=messages,
+            completions = client.chat.completions.create( 
+                messages=messages,  # type: ignore
                 model=model_name,
                 **decoding_args.__dict__
             )
@@ -61,7 +58,8 @@ def openai_completion(
                 )
             else:
                 raise e
-    return cast(str, completions.choices[0].message.content.strip())
+    content = completions.choices[0].message.content
+    return content.strip() if content is not None else ""
 
 
 def openai_batch_completion(

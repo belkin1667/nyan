@@ -15,7 +15,7 @@ from nyan.client import MessageId
 from nyan.document import Document
 from nyan.mongo import get_clusters_collection
 from nyan.title import choose_title
-from nyan.openai import openai_completion
+from nyan.openai import openai_completion, Models
 
 
 BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
@@ -158,7 +158,7 @@ class Cluster:
 
         differences: List[Dict[str, Any]] = []
         try:
-            content = openai_completion(messages=messages, model_name="gpt-4o")
+            content = openai_completion(messages=messages)
             content = content[content.find("{") : content.rfind("}") + 1]
             parsed_content: Dict[str, List[Dict[str, Any]]] = json.loads(content)
             differences = parsed_content["differences"]
@@ -177,21 +177,6 @@ class Cluster:
             traceback.print_exc()
             differences = []
         return differences
-
-    @property
-    def get_styled_text(self, style_name: str) -> str:
-        if style_name is None:
-            return self.annotation_doc.patched_text
-        prompt_path: Path = BASE_DIR / "prompts/styles/{}.txt".format(style_name)
-        try:
-            with open(prompt_path) as f:
-                template = Template(f.read())
-            prompt = template.render(annotation_doc=self.annotation_doc)
-        except Exception:
-            return self.annotation_doc.patched_text
-        messages = [{"role": "user", "content": prompt}]
-        messages = [{"role": "user", "content": prompt}]
-        return openai_completion(messages=messages, model_name="gpt-4o")
 
     @property
     def annotation_doc(self) -> Document:
@@ -265,6 +250,20 @@ class Cluster:
         final_issues.extend(categories)
         return list(set(final_issues))
 
+    def get_styled_text(self, style_name: str) -> str:
+        if style_name is None:
+            return self.annotation_doc.patched_text
+        prompt_path: Path = BASE_DIR / "prompts/styles/{}.txt".format(style_name)
+        try:
+            with open(prompt_path) as f:
+                template = Template(f.read())
+            prompt = template.render(annotation_doc=self.annotation_doc)
+        except Exception:
+            return self.annotation_doc.patched_text
+        messages = [{"role": "user", "content": prompt}]
+        messages = [{"role": "user", "content": prompt}]
+        return openai_completion(messages=messages, model_name=Models.DEEPSEEK_R1)
+    
     def get_issue_message(self, issue: str) -> Optional[MessageId]:
         messages = [m for m in self.messages if m.issue == issue]
         if messages:

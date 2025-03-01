@@ -1,9 +1,0 @@
-[
-    {
-        "style_name": "no_style"
-    },
-    {
-        "style_name": "gopnik",
-        "prompt_path": "prompts/styles/gopnik.txt"
-    }
-]

@@ -28,7 +28,7 @@ class Renderer:
         self.cluster_template = env.get_template(config["cluster_template"])
         self.tz_offset = config["tz_offset"]
         self.tz_name = config["tz_name"]
-        issue_configs = IssueConfigs(self.config["issues"])
+        issue_configs = IssueConfigs(config["issues"])
         self.issues: Dict[str, IssueConfig] = issue_configs.get_issues()
 
     def render_cluster(self, cluster: Cluster, issue_name: str) -> str:

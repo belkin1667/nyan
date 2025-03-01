@@ -5,6 +5,15 @@ from multiprocessing.pool import ThreadPool
 
 import openai
 import copy
+import nyan.config as config
+
+
+import enum
+
+
+class Models(enum.Enum):
+    OPENAI_GPT_4O_LATEST = "openai/chatgpt-4o-latest"
+    DEEPSEEK_R1 = "deepseek/deepseek-r1"
 
 
 @dataclass
@@ -25,15 +34,21 @@ DEFAULT_ARGS = OpenAIDecodingArguments()
 def openai_completion(
     messages: List[Dict[str, Any]],
     decoding_args: OpenAIDecodingArguments = DEFAULT_ARGS,
-    model_name: str = "gpt-4",
+    model_name: str = Models.OPENAI_GPT_4O_LATEST,
     sleep_time: int = 2,
 ) -> str:
+    client = openai.OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=config.OPENROUTER_API_KEY,
+    )
     decoding_args = copy.deepcopy(decoding_args)
     assert decoding_args.n == 1
     while True:
         try:
-            completions = openai.ChatCompletion.create(  # type: ignore
-                messages=messages, model=model_name, **decoding_args.__dict__
+            completions = client.chat.completions.create(  # type: ignore
+                messages=messages,
+                model=model_name,
+                **decoding_args.__dict__
             )
             break
         except Exception as e:
@@ -52,7 +67,7 @@ def openai_completion(
 def openai_batch_completion(
     batch: List[List[Dict[str, Any]]],
     decoding_args: OpenAIDecodingArguments = DEFAULT_ARGS,
-    model_name: str = "gpt-4",
+    model_name: str = Models.OPENAI_GPT_4O_LATEST,
     sleep_time: int = 2,
 ) -> List[str]:
     completions = []

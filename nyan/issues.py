@@ -2,6 +2,7 @@ import os
 import json
 from typing import Dict, Optional
 from dataclasses import dataclass
+import nyan.config as config
 
 
 @dataclass
@@ -11,7 +12,7 @@ class IssueConfig:
     discussion_id: int
     bot_token: str
     last_update_id: int = 0
-    style_name: Optional[str] = None
+    style_name: str = None
 
 
 class IssueConfigs:
@@ -22,6 +23,9 @@ class IssueConfigs:
         self.issues: Dict[str, IssueConfig] = {
             config["name"]: IssueConfig(**config) for config in self.config["issues"]
         }
+        if config.BOT_TOKEN:
+            for issue in self.issues.values():
+                issue.bot_token = config.BOT_TOKEN
 
     def get_issues(self) -> Dict[str, IssueConfig]:
-        return list(self.issues)
+        return self.issues

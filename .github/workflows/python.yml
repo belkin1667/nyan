@@ -32,4 +32,5 @@ jobs:
         mypy --strict nyan/
     - name: PyTest
       run: |
+        mv .env.dist .env
         pytest -s

@@ -17,7 +17,7 @@ from nyan.util import read_jsonl
 
 
 def get_channels_info_path() -> str:
-    return "channels.json"
+    return "tests/configs/channels.json"
 
 
 @pytest.fixture
@@ -26,7 +26,7 @@ def channels_info_path() -> str:
 
 
 def get_annotator_config_path() -> str:
-    return "configs/annotator_config.json"
+    return "tests/configs/annotator_config.json"
 
 
 @pytest.fixture
@@ -67,7 +67,7 @@ def ranker_output_path() -> str:
 
 
 def get_clusterer_config_path() -> str:
-    return "configs/clusterer_config.json"
+    return "tests/configs/clusterer_config.json"
 
 
 @pytest.fixture
@@ -76,7 +76,7 @@ def clusterer_config_path() -> str:
 
 
 def get_ranker_config_path() -> str:
-    return "configs/test_ranker_config.json"
+    return "tests/configs/test_ranker_config.json"
 
 
 @pytest.fixture
@@ -85,7 +85,7 @@ def ranker_config_path() -> str:
 
 
 def get_renderer_config_path() -> str:
-    return "configs/renderer_config.json"
+    return "tests/configs/renderer_config.json"
 
 
 @pytest.fixture
